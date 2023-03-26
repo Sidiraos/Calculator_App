@@ -24,7 +24,7 @@ body {
 }
 .displayCalc {
   background-color: #23303b;
-  height: 40%;
+  min-height: 175px;
   color: #f1f1f1;
   display: flex;
   border-radius: 4%;
@@ -33,14 +33,17 @@ body {
   text-align: end;
   font-size: 20px;
   padding: 30px;
+  min-height: 100px;
 }
-.displayCalc .operating {
+.operating {
   text-align: end;
   font-size: 40px;
+  overflow: auto;
 }
 .tableOperator {
   display: grid;
   grid-template-columns: repeat(4 , 1fr);
+  grid-template-rows: repeat(5,1fr);
   gap: 20px;
 }
 .digitOperator {
@@ -48,8 +51,9 @@ body {
   text-align: center;
   border-radius: 10%;
   padding: 15px 5px;
+  user-select: none;
 }
-#cancel {
+#clear {
   grid-column: 1/3 ;
 
 }
