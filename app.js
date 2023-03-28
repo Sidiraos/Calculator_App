@@ -12,6 +12,7 @@ let displayValue = ""
 digits.forEach(digit => digit.addEventListener('click' , showInputUser))
 clear.addEventListener('click' , handleClearDigitBtn);
 equalBtn.addEventListener('click', showInputResult);
+clearEntryBtn.addEventListener('click', clearEntry);
 
 function handleClearDigitBtn(e){
     renitValue();
@@ -38,7 +39,7 @@ function showInputUser(e){
     operating.textContent = displayValue;
 }
 
-let strDisplay= "";
+let strDisplay = "";
 let count = "";
 function verifyCommaBug (e){
   if(e.target.classList.contains('digitNumber') || e.target.classList.contains('comma')) {
@@ -73,36 +74,7 @@ function verifyMathOperatorBug(e){
   }
 }
 function showInputResult(e){
-  let str = displayValue.replace(/\s/g, "");
-  let lastStr = str.charAt(str.length - 1);
-  let beforeLastStr = str.charAt(str.length - 2);
-  let equalStr = beforeLastStr + lastStr
-  console.log("equal "+ equalStr)
-  // if lastItem displayValue is mathOperator we return before calculating
-  if(
-    lastStr.toLowerCase() === "x" || 
-    lastStr.toLowerCase() === "+" || 
-    lastStr.toLowerCase() === "/" || 
-    lastStr.toLowerCase() === "-" 
-    ) {
-      operating.textContent = "Error";
-      console.log(operating.textContent)
-      return
-    } else if (
-        equalStr === ".x" ||
-        equalStr === ".+" ||
-        equalStr === "./" ||
-        equalStr === ".-" ||
-        equalStr === "x." ||
-        equalStr === "+." ||
-        equalStr === "/." ||
-        equalStr === "-."
-      ) {
-        operating.textContent = "Error";
-        setTimeout(renitValue , 1000)
-        return
-      }
-      
+  handleBugBeforeShowResult()
   result.textContent = displayValue;
   let resultat = eval(inputUsers);
   console.log(resultat)
@@ -118,6 +90,45 @@ function showInputResult(e){
   return resultat
 }
 
+function handleBugBeforeShowResult(){
+  let str = displayValue.replace(/\s/g, "");
+  let lastStr = str.charAt(str.length - 1);
+  let beforeLastStr = str.charAt(str.length - 2);
+  let equalStr = beforeLastStr + lastStr
+  console.log("equal "+ equalStr)
+  // handle bug before calculating 
+  if(
+    lastStr.toLowerCase() === "x" || 
+    lastStr.toLowerCase() === "+" || 
+    lastStr.toLowerCase() === "/" || 
+    lastStr.toLowerCase() === "-" 
+    ) {
+      operating.textContent = "Error";
+      console.log(operating.textContent)
+      return
+    } else if (
+        equalStr === "x." ||
+        equalStr === "+." ||
+        equalStr === "/." ||
+        equalStr === "-."
+      ) {
+        operating.textContent = "Error";
+        setTimeout(renitValue , 1000)
+        return
+      }
+}
+
+function clearEntry(){
+  if (displayValue.length < 2 && inputUsers.length < 2) {
+    console.log("can not clear entry")
+  } else {
+    displayValue = displayValue.slice(0, -1)
+    inputUsers = inputUsers.slice(0 , -1)
+    console.log('inputUser' , inputUsers)
+    console.log("clearEntry" , displayValue)
+    operating.textContent = displayValue;
+  }
+}
 
 
 

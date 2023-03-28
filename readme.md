@@ -1,4 +1,5 @@
 <h1>Calculator App</h1>
+<h3>Inspired by Google Calculator</h3>
 
 <ul>
     <b>V1.0 first commit</b>:
@@ -21,6 +22,11 @@ you must block the btn operator when you click it once, you must not click it tw
     <b>V1.4</b>:
     <li> bug fixed when last displayed field is a comma+operator when clicked on the equal Btn & operator + comma
     </li>
-    <li>if result has a comma we cannot add a comma if we cant carry on the operating field </li>
+    <li>if result has a comma we cannot add a comma if we want carry on the operating field </li>
 </ul>
+<ul>
+    <b>V1.5</b>:
+    <li>add clearEntry function</li>
+</ul>
+
 
