@@ -40,6 +40,19 @@ body {
   font-size: 40px;
   overflow: auto;
 }
+.operating::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+::-webkit-scrollbar-track {
+  background-color: #23303b;
+}
+::-webkit-scrollbar-thumb {
+  background-color: #264259;
+}
+::-webkit-scrollbar-thumb:hover {
+  background-color: #20639b;
+}
 .tableOperator {
   display: grid;
   grid-template-columns: repeat(4 , 1fr);

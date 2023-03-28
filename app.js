@@ -4,96 +4,89 @@ const operating = document.querySelector('.operating');
 const clear = document.querySelector('#clear');
 const equalBtn = document.querySelector('#equal');
 const clearEntryBtn = document.querySelector('#clearEntry');
-let digitList = [];
-let inputUsers = " "
+const comma = document.querySelector('.comma');
+
+let inputUsers = "";
+let displayValue = ""
 
 digits.forEach(digit => digit.addEventListener('click' , showInputUser))
 clear.addEventListener('click' , handleClearDigitBtn);
+equalBtn.addEventListener('click', showInputResult);
 
 function handleClearDigitBtn(e){
-    inputUsers = ' '
+    inputUsers = "";
+    displayValue = "";
+    result.textContent = "";
+    str = "";
+    count = 0;
     operating.textContent = '0';
-    newValues = [];
-    result.textContent = '';
+    comma.addEventListener('click', showInputUser)
+
 }
-function showInputUser(e){
-    let values = e.target.getAttribute('value');
-    inputUsers += values;
-    operating.textContent = inputUsers
-}
-
-equalBtn.addEventListener('click', showResult);
-
-let newValues = []
-
-function showResult(e){
-    console.log(inputUsers)
-    let values  = inputUsers.split(' ').slice(1)
-    values.forEach(item => {
-        if(item ==='x') item = '*' ;
-        newValues.push(item)
-    });
-
-  // Évaluer l'expression
-  const resultat = newValues.reduce(reduireExpression, '');
-  
-  console.log(resultat); // Résultat de l'expression: 33
-  result.textContent = ""
-  result.textContent = inputUsers;
-  newValues = [];
-  newValues.push(resultat.toString());
-  inputUsers = resultat;
-  operating.textContent = resultat;
-  console.log(newValues);
-}
-
-
-function reduireExpression (acc, element, index, tableau) {
-  // Ajouter l'élément actuel à l'accumulateur
-  acc += element;
-
-  // Si nous sommes au dernier élément, évaluer l'expression
-  if (index === tableau.length - 1) {
-    return eval(acc);
-  }
-
-  // Si l'élément actuel est un opérateur, continuer à ajouter les éléments suivants à l'accumulateur
-  if (element === '+' || element === '-' || element === '*' || element === '/') {
-    return acc;
-  }
-
-  // Sinon, ajouter un espace à l'accumulateur pour séparer les éléments
-  acc += ' ';
-  
-  // Passer l'accumulateur modifié à l'itération suivante
-  return acc;
-}
-
-clearEntryBtn.addEventListener('click', clearNumber)
-
 let lock = false;
-function clearNumber (e){
-  if (operating.textContent = '' || operating.textContent === '0') {
-    lock = true;
-  } else {
-    lock = false;
-  }
-  if(lock) return;
-  operating.textContent = operating.textContent.slice(0,-1);
-  newValues = [];
-  inputUsers = ' ';
-  inputUsers += operating.textContent;
-  console.log(inputUsers)
-
+function showInputUser(e){
+    verifyMathOperatorBug(e)
+    if(lock) return;
+    e.target.classList.contains('mathOperator') ? displayValue += ` ${e.target.textContent} ` : displayValue += e.target.textContent;
+    verifyCommaBug(e)
+    inputUsers += e.target.getAttribute('value');
+    operating.innerHTML = displayValue;
 }
 
-operating.addEventListener('input', (e)=>{
-  if (operating.textContent = '') {
-    result.textContent = '';
-    operating.textContent = '0'
-  }
-})
+let str= "";
+let count = "";
+function verifyCommaBug (e){
+  if(e.target.classList.contains('digitNumber') || e.target.classList.contains('comma')) {
+      str += e.target.textContent;
+      count = "";
+      for (let i = 0 ; i < str.length ; i++) {
+        if (str.charAt(i) === "."){
+            count++;
+            console.log("count" , count);
+            if(count >= 1) {
+              comma.removeEventListener('click', showInputUser)
+            }
+        } 
+      }
+  } else {
+      str = "";
+      count = 0;
+      comma.addEventListener('click', showInputUser)
 
+  }
+}
+
+function verifyMathOperatorBug(e){
+  if (e.target.classList.contains('mathOperator')) {
+    let str = displayValue.replace(/\s/g, "");
+    let lastStr = str.charAt(str.length - 1);
+    if(e.target.textContent.toLowerCase() === lastStr.toLowerCase()){
+        lock = true ;
+        console.log("no authorization")
+    }
+  } 
+  else {
+    lock = false ;
+  }
+}
+function showInputResult(e){
+  let str = displayValue.replace(/\s/g, "");
+  let lastStr = str.charAt(str.length - 1);
+  if(
+    lastStr.toLowerCase() === "x" || 
+    lastStr.toLowerCase() === "+" || 
+    lastStr.toLowerCase() === "/" || 
+    lastStr.toLowerCase() === "-"
+    ) return
+  result.textContent = displayValue;
+  let resultat = eval(inputUsers);
+  console.log(resultat)
+  inputUsers = resultat;
+  displayValue = '';
+  displayValue += resultat
+  operating.textContent = displayValue;
+  return resultat
+}
 
 
 
