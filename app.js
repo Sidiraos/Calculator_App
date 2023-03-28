@@ -118,15 +118,16 @@ function handleBugBeforeShowResult(){
       }
 }
 
+
 function clearEntry(){
-  if (displayValue.length < 2 && inputUsers.length < 2) {
-    console.log("can not clear entry")
+  if(inputUsers.length < 2 && ! displayValue.length < 2){
+    console.log('cannot clear entry')
   } else {
-    displayValue = displayValue.slice(0, -1)
-    inputUsers = inputUsers.slice(0 , -1)
-    console.log('inputUser' , inputUsers)
-    console.log("clearEntry" , displayValue)
+    displayValue = displayValue.slice(0 , -1);
+    inputUsers = inputUsers.toString().slice(0 , -1);
     operating.textContent = displayValue;
+    console.log(inputUsers)
+    console.log(displayValue)
   }
 }
 
