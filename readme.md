@@ -17,4 +17,10 @@ you must block the btn operator when you click it once, you must not click it tw
     </li>
 </ul>
 
+<ul>
+    <b>V1.4</b>:
+    <li> bug fixed when last displayed field is a comma+operator when clicked on the equal Btn & operator + comma
+    </li>
+    <li>if result has a comma we cannot add a comma if we cant carry on the operating field </li>
+</ul>
 

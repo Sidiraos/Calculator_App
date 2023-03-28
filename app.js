@@ -14,14 +14,17 @@ clear.addEventListener('click' , handleClearDigitBtn);
 equalBtn.addEventListener('click', showInputResult);
 
 function handleClearDigitBtn(e){
-    inputUsers = "";
-    displayValue = "";
-    result.textContent = "";
-    str = "";
-    count = 0;
-    operating.textContent = '0';
+    renitValue();
     comma.addEventListener('click', showInputUser)
 
+}
+function renitValue(){
+  inputUsers = "";
+  displayValue = "";
+  result.textContent = "";
+  strDisplay = "";
+  count = 0;
+  operating.textContent = '0';
 }
 let lock = false;
 function showInputUser(e){
@@ -29,30 +32,31 @@ function showInputUser(e){
     if(lock) return;
     e.target.classList.contains('mathOperator') ? displayValue += ` ${e.target.textContent} ` : displayValue += e.target.textContent;
     verifyCommaBug(e)
+    console.log("displayValue" , displayValue)
     inputUsers += e.target.getAttribute('value');
-    operating.innerHTML = displayValue;
+    console.log("inputUsers" , inputUsers)
+    operating.textContent = displayValue;
 }
 
-let str= "";
+let strDisplay= "";
 let count = "";
 function verifyCommaBug (e){
   if(e.target.classList.contains('digitNumber') || e.target.classList.contains('comma')) {
-      str += e.target.textContent;
+      strDisplay += e.target.textContent;
       count = "";
-      for (let i = 0 ; i < str.length ; i++) {
-        if (str.charAt(i) === "."){
+      for (let i = 0 ; i < strDisplay.length ; i++) {
+        if (strDisplay.charAt(i) === "."){
             count++;
-            console.log("count" , count);
+            // console.log("count" , count);
             if(count >= 1) {
               comma.removeEventListener('click', showInputUser)
             }
         } 
       }
   } else {
-      str = "";
+      strDisplay = "";
       count = 0;
       comma.addEventListener('click', showInputUser)
-
   }
 }
 
@@ -62,22 +66,43 @@ function verifyMathOperatorBug(e){
     let lastStr = str.charAt(str.length - 1);
     if(e.target.textContent.toLowerCase() === lastStr.toLowerCase()){
         lock = true ;
-        console.log("no authorization")
+        console.log("no authorizated")
     }
-  } 
-  else {
+  } else {
     lock = false ;
   }
 }
 function showInputResult(e){
   let str = displayValue.replace(/\s/g, "");
   let lastStr = str.charAt(str.length - 1);
+  let beforeLastStr = str.charAt(str.length - 2);
+  let equalStr = beforeLastStr + lastStr
+  console.log("equal "+ equalStr)
+  // if lastItem displayValue is mathOperator we return before calculating
   if(
     lastStr.toLowerCase() === "x" || 
     lastStr.toLowerCase() === "+" || 
     lastStr.toLowerCase() === "/" || 
-    lastStr.toLowerCase() === "-"
-    ) return
+    lastStr.toLowerCase() === "-" 
+    ) {
+      operating.textContent = "Error";
+      console.log(operating.textContent)
+      return
+    } else if (
+        equalStr === ".x" ||
+        equalStr === ".+" ||
+        equalStr === "./" ||
+        equalStr === ".-" ||
+        equalStr === "x." ||
+        equalStr === "+." ||
+        equalStr === "/." ||
+        equalStr === "-."
+      ) {
+        operating.textContent = "Error";
+        setTimeout(renitValue , 1000)
+        return
+      }
+      
   result.textContent = displayValue;
   let resultat = eval(inputUsers);
   console.log(resultat)
@@ -85,6 +110,11 @@ function showInputResult(e){
   displayValue = '';
   displayValue += resultat
   operating.textContent = displayValue;
+  count = 0;
+  strDisplay = " ";
+  comma.addEventListener('click' , showInputUser);
+  resultat.toString().split("").includes(".") ? comma.removeEventListener('click', showInputUser) : comma.addEventListener('click', showInputUser)
+
   return resultat
 }
 
