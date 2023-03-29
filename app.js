@@ -48,7 +48,6 @@ function verifyCommaBug (e){
       for (let i = 0 ; i < strDisplay.length ; i++) {
         if (strDisplay.charAt(i) === "."){
             count++;
-            // console.log("count" , count);
             if(count >= 1) {
               comma.removeEventListener('click', showInputUser)
             }
@@ -65,7 +64,10 @@ function verifyMathOperatorBug(e){
   if (e.target.classList.contains('mathOperator')) {
     let str = displayValue.replace(/\s/g, "");
     let lastStr = str.charAt(str.length - 1);
-    if(e.target.textContent.toLowerCase() === lastStr.toLowerCase()){
+    if(
+      e.target.textContent.toLowerCase() === lastStr.toLowerCase()
+
+    ){
         lock = true ;
         console.log("no authorizated")
     }
