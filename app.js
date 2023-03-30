@@ -69,7 +69,11 @@ function verifyMathOperatorBug(e){
         console.log("no authorizated") ;
         // add style here error message
         displayErrorAnimation(displayCalc);
-        setTimeout(()=>{removeErrorAnimation(displayCalc)} , 400)
+        e.target.removeEventListener("click" , showInputUser)
+        setTimeout(()=>{
+          removeErrorAnimation(displayCalc)
+          e.target.addEventListener("click" , showInputUser)
+        } , 400)
 
     } else if (lastStr === "x" && e.target.textContent === "/"){
         // console.log("replaced by /")

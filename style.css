@@ -44,6 +44,8 @@ body {
   font-size: 40px;
   overflow: auto;
   font-weight: 800;
+  white-space: nowrap;
+  overflow-x: auto;
 }
 .operating::-webkit-scrollbar {
   width: 5px;
