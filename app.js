@@ -5,7 +5,7 @@ const clear = document.querySelector('#clear');
 const equalBtn = document.querySelector('#equal');
 const clearEntryBtn = document.querySelector('#clearEntry');
 const comma = document.querySelector('.comma');
-
+const displayCalc = document.querySelector('.displayCalc');
 let inputUsers = "";
 let displayValue = ""
 
@@ -64,13 +64,25 @@ function verifyMathOperatorBug(e){
   if (e.target.classList.contains('mathOperator')) {
     let str = displayValue.replace(/\s/g, "");
     let lastStr = str.charAt(str.length - 1);
-    if(
-      e.target.textContent.toLowerCase() === lastStr.toLowerCase()
-
-    ){
+    if(e.target.textContent.toLowerCase() === lastStr.toLowerCase()){
         lock = true ;
-        console.log("no authorizated")
-    }
+        console.log("no authorizated") ;
+        // add style here error message
+        displayErrorAnimation(displayCalc);
+        setTimeout(()=>{removeErrorAnimation(displayCalc)} , 400)
+
+    } else if (lastStr === "x" && e.target.textContent === "/"){
+        // console.log("replaced by /")
+        lock = false;
+        displayValue = displayValue.slice(0, -3)
+        inputUsers = inputUsers.slice(0,-3)
+    } else if (lastStr === "/" && e.target.textContent === "x") {
+        //console.log("replaced by x")
+        lock = false;
+        displayValue = displayValue.slice(0, -3);
+        inputUsers = inputUsers.slice(0,-3);
+
+    } else {lock = false ; removeErrorAnimation(displayCalc)}
   } else {
     lock = false ;
   }
@@ -106,7 +118,9 @@ function handleBugBeforeShowResult(){
     lastStr.toLowerCase() === "-" 
     ) {
       operating.textContent = "Error";
-      console.log(operating.textContent)
+      // error animation css
+      displayErrorAnimation(displayCalc);
+      setTimeout(()=>{removeErrorAnimation(displayCalc)} , 400)
       return
     } else if (
         equalStr === "x." ||
@@ -116,23 +130,33 @@ function handleBugBeforeShowResult(){
       ) {
         operating.textContent = "Error";
         setTimeout(renitValue , 1000)
+        // error animation css
+        displayErrorAnimation(displayCalc);
+        setTimeout(()=>{removeErrorAnimation(displayCalc)} , 400)
         return
       }
 }
 
-
 function clearEntry(){
-  if(inputUsers.length < 2 && ! displayValue.length < 2){
+  console.log(inputUsers)
+  console.log(displayValue)
+  if(inputUsers.length < 2 || displayValue.length < 2){
     console.log('cannot clear entry')
   } else {
     displayValue = displayValue.slice(0 , -1);
     inputUsers = inputUsers.toString().slice(0 , -1);
     operating.textContent = displayValue;
-    console.log(inputUsers)
-    console.log(displayValue)
+    
   }
 }
 
+function displayErrorAnimation(el){
+    el.classList.add("error");
+}
+
+function removeErrorAnimation(el){
+  el.classList.remove("error");
+}
 
 
 

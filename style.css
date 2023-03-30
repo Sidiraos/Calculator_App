@@ -84,3 +84,16 @@ body {
   background-color: #ffc371;
   font-weight:600;
 }
+
+/* error animation */
+.displayCalc.error {
+  animation: error-animation 0.4s ease-in-out;
+}
+@keyframes error-animation {
+    form {
+      box-shadow: none;
+    }
+    to {
+      box-shadow: 0 0 17px rgb(216 23 23 / 81%) inset;  
+    }
+}
