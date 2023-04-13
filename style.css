@@ -31,26 +31,30 @@ body {
   border: 2px solid #4c4949;
   box-shadow: 0 0 17px rgba(0, 0, 0, 0.812) inset;
   padding: 15px 30px;
-  font-family: open-sans-serif;
+  font-family: Roboto , sans-serif;
   font-variant-numeric: tabular-nums;
+  position: relative;
 }
 .result {
   text-align: end;
   font-size: 20px;
   min-height: 30px;
+  white-space: nowrap;
+  overflow-x: auto;
+  font-weight: 300;
 }
 .operating {
   text-align: end;
   font-size: 40px;
-  overflow: auto;
   font-weight: 800;
   white-space: nowrap;
   overflow-x: auto;
 }
-.operating::-webkit-scrollbar {
+::-webkit-scrollbar {
   width: 5px;
   height: 5px;
 }
+
 ::-webkit-scrollbar-track {
   background-color: #23303b;
 }

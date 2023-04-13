@@ -54,6 +54,11 @@ you must block the btn operator when you click it once, you must not click it tw
     <b>V2.0</b>:
     <li>Bug fixed when number mathOpertor and float number eg 6 * 0.4 </li>
 </ul>
+<ul>
+    <b>V2.1</b>:
+    <li>fixed bug in result display make an overflow x but height no change</li>
+</ul>
+
 
 
 

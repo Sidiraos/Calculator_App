@@ -41,6 +41,7 @@ function showInputUser(e){
 
 let strDisplay = "";
 let count = "";
+
 function verifyCommaBug (e){
   if(e.target.classList.contains('digitNumber') || e.target.classList.contains('comma')) {
       strDisplay += e.target.textContent;
@@ -85,8 +86,8 @@ function verifyMathOperatorBug(e){
         lock = false;
         displayValue = displayValue.slice(0, -3);
         inputUsers = inputUsers.slice(0,-3);
-
-    } else {lock = false ; removeErrorAnimation(displayCalc)}
+    } 
+    else {lock = false ; removeErrorAnimation(displayCalc)}
   } else {
     lock = false ;
   }
@@ -104,7 +105,6 @@ function showInputResult(e){
   strDisplay = " ";
   comma.addEventListener('click' , showInputUser);
   resultat.toString().split("").includes(".") ? comma.removeEventListener('click', showInputUser) : comma.addEventListener('click', showInputUser)
-
   return resultat
 }
 
