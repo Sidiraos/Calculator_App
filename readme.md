@@ -59,6 +59,14 @@ you must block the btn operator when you click it once, you must not click it tw
     <li>fixed bug in result display make an overflow x but height no change</li>
 </ul>
 
+<ul>
+    <b>V2.2</b>:
+    <li>Change JS methode , replace eval function</li>
+</ul>
+<ul>
+    <b>V2.3</b>:
+    <li>update flavicon , add responsive query on css for mobile</li>
+</ul>
 
 
 
